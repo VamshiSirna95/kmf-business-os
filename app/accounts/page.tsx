@@ -12,6 +12,7 @@ const FEATURES = [
   {
     title: 'Reconciliation',
     sub: 'SD · BRS · Vendor · Daily',
+    href: '/accounts/reconciliation',
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
         <rect x="2" y="2" width="9" height="9" rx="2" fill="#2997ff" />
@@ -24,6 +25,7 @@ const FEATURES = [
   {
     title: 'Payables',
     sub: 'Cash flow calendar',
+    href: '/accounts/payables',
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
         <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" stroke="#30d158" strokeWidth="1.5" />
@@ -34,6 +36,7 @@ const FEATURES = [
   {
     title: 'GST & TDS',
     sub: 'Compliance tracking',
+    href: '',
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
         <rect x="3" y="5" width="18" height="14" rx="2" stroke="#f59e0b" strokeWidth="1.5" />
@@ -45,6 +48,7 @@ const FEATURES = [
   {
     title: 'Bank Position',
     sub: 'Kotak + ICICI live',
+    href: '',
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
         <circle cx="12" cy="12" r="10" stroke="#bf5af2" strokeWidth="1.5" />
@@ -55,6 +59,7 @@ const FEATURES = [
   {
     title: 'Alerts',
     sub: '12 active alerts',
+    href: '',
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
         <circle cx="12" cy="12" r="10" stroke="#ff453a" strokeWidth="1.5" />
@@ -317,6 +322,7 @@ export default function AccountsPage() {
           {FEATURES.map((f, i) => (
             <div
               key={f.title}
+              onClick={() => f.href && router.push(f.href)}
               style={{
                 padding: '20px 14px',
                 textAlign: 'center',
