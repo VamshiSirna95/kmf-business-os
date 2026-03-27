@@ -1,6 +1,9 @@
+'use client'
+import { useRouter } from 'next/navigation'
 import DeptCard from './DeptCard'
 
 export default function DashboardGrid() {
+  const router = useRouter()
   return (
     <section style={{ background: '#000' }}>
       {/* Section header */}
@@ -77,6 +80,7 @@ export default function DashboardGrid() {
           ctaText="Open Accounts ›"
           accentColor="#2997ff"
           patternType="wave"
+          onClick={() => router.push('/accounts')}
         />
 
         <DeptCard

@@ -243,7 +243,31 @@ function StatCell({ stat }: { stat: (typeof STATS)[0] }) {
   )
 }
 
-export default function StatsSection() {
+export interface StatItem {
+  id: string
+  targetVal: number
+  prefix: string
+  suffix: string
+  label: string
+  delta: string
+  deltaColor: string
+  numColor: string
+  sparkData: number[]
+  sparkColor: string
+}
+
+interface StatsSectionProps {
+  eyebrow?: string
+  title?: string
+  stats?: StatItem[]
+}
+
+export default function StatsSection({
+  eyebrow = 'Live Numbers',
+  title = 'Business at a glance.',
+  stats,
+}: StatsSectionProps) {
+  const data = stats || STATS
   return (
     <section
       style={{
@@ -263,7 +287,7 @@ export default function StatsSection() {
             marginBottom: 8,
           }}
         >
-          Live Numbers
+          {eyebrow}
         </div>
         <div
           style={{
@@ -274,7 +298,7 @@ export default function StatsSection() {
             lineHeight: 1.1,
           }}
         >
-          Business at a glance.
+          {title}
         </div>
       </div>
 
@@ -288,7 +312,7 @@ export default function StatsSection() {
           borderTop: '1px solid rgba(255,255,255,0.06)',
         }}
       >
-        {STATS.map(stat => (
+        {data.map(stat => (
           <StatCell key={stat.id} stat={stat} />
         ))}
       </div>

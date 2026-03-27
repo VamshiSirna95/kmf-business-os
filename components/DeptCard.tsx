@@ -17,6 +17,7 @@ interface DeptCardProps {
   ctaText: string
   accentColor: string
   patternType: 'wave' | 'grid' | 'blobs' | 'zigzag' | 'hexdots' | 'rings'
+  onClick?: () => void
 }
 
 function drawPattern(
@@ -209,6 +210,7 @@ export default function DeptCard({
   ctaText,
   accentColor,
   patternType,
+  onClick,
 }: DeptCardProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const cardRef = useRef<HTMLDivElement>(null)
@@ -263,6 +265,7 @@ export default function DeptCard({
   return (
     <div
       ref={cardRef}
+      onClick={onClick}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{

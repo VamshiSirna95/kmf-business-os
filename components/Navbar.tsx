@@ -1,13 +1,27 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useRouter, usePathname } from 'next/navigation'
 
-const NAV_LINKS = [
-  'Overview','Accounts','Warehouse',
-  'HR','Purchase','Stores','Analytics'
+const NAV_LINKS: { label: string; href: string }[] = [
+  { label: 'Overview', href: '/' },
+  { label: 'Accounts', href: '/accounts' },
+  { label: 'Warehouse', href: '' },
+  { label: 'HR', href: '' },
+  { label: 'Purchase', href: '' },
+  { label: 'Stores', href: '' },
+  { label: 'Analytics', href: '' },
 ]
 
 export default function Navbar() {
+  const router = useRouter()
+  const pathname = usePathname()
   const [active, setActive] = useState('Overview')
+
+  useEffect(() => {
+    if (pathname.startsWith('/accounts')) setActive('Accounts')
+    else setActive('Overview')
+  }, [pathname])
+
   return (
     <nav style={{
       position: 'fixed', top: 0, left: 0, right: 0,
@@ -21,11 +35,15 @@ export default function Navbar() {
     }}>
 
       {/* Logo */}
-      <div style={{
-        fontSize: 13, fontWeight: 600,
-        color: 'rgba(255,255,255,0.88)',
-        letterSpacing: -0.2, whiteSpace: 'nowrap',
-      }}>
+      <div
+        onClick={() => router.push('/')}
+        style={{
+          fontSize: 13, fontWeight: 600,
+          color: 'rgba(255,255,255,0.88)',
+          letterSpacing: -0.2, whiteSpace: 'nowrap',
+          cursor: 'pointer',
+        }}
+      >
         KMF Business OS
       </div>
 
@@ -35,22 +53,25 @@ export default function Navbar() {
       }}>
         {NAV_LINKS.map(link => (
           <div
-            key={link}
-            onClick={() => setActive(link)}
+            key={link.label}
+            onClick={() => {
+              setActive(link.label)
+              if (link.href) router.push(link.href)
+            }}
             style={{
               fontSize: 11, padding: '5px 12px',
               borderRadius: 20, cursor: 'pointer',
               transition: 'all 0.2s',
-              background: active === link
+              background: active === link.label
                 ? 'rgba(255,255,255,0.1)'
                 : 'transparent',
-              color: active === link
+              color: active === link.label
                 ? '#fff'
                 : 'rgba(255,255,255,0.45)',
-              fontWeight: active === link ? 500 : 400,
+              fontWeight: active === link.label ? 500 : 400,
             }}
           >
-            {link}
+            {link.label}
           </div>
         ))}
       </div>
